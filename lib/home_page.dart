@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('ท่าสำเร็จแล้ว! / Pose completed!'),
-              backgroundColor: Colors.green[300], // เปลี่ยนจากสีเขียว
+              backgroundColor: Colors.green,
             ),
           );
         }
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('ไม่มีท่าโยคะให้เล่น / No poses available'),
-          backgroundColor: Colors.orange[300], // เปลี่ยนสีแจ้งเตือน
+          backgroundColor: Colors.orange,
         ),
       );
     }
@@ -73,11 +73,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Color _getBackgroundColor(String? difficulty) {
     switch (difficulty) {
       case 'Beginner':
-        return Colors.green[100]!.withOpacity(0.1); // เขียวอ่อน
+        return Colors.green.withOpacity(0.1);
       case 'Intermediate':
-        return Colors.blue[100]!.withOpacity(0.1); // ฟ้าอ่อน
+        return Colors.yellow.withOpacity(0.1);
       case 'Advanced':
-        return Colors.teal[100]!.withOpacity(0.1); // เขียวน้ำทะเลอ่อน
+        return Colors.red.withOpacity(0.1);
       default:
         return Colors.grey.withOpacity(0.1);
     }
@@ -98,7 +98,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         title: Text('ท่าโยคะ / Yoga Pose'),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.blue[200], // ฟ้าอ่อน
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shuffle),
+            onPressed: _playRandomPose,
+            tooltip: 'สุ่มท่าโยคะ / Random Pose',
+          ),
+        ],
       ),
       body: Container(
         color: _remainingTime != null
@@ -109,7 +115,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.self_improvement, size: 80, color: Colors.teal[300]), // เขียวน้ำทะเล
+                    Icon(Icons.self_improvement, size: 80, color: Colors.purple),
                     SizedBox(height: 16),
                     Text(
                       'ยังไม่มีท่าโยคะ / No poses yet',
@@ -147,7 +153,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           elevation: 2,
                           margin: EdgeInsets.symmetric(vertical: 4),
                           child: ListTile(
-                            leading: Icon(Icons.self_improvement, color: Colors.teal[300]), // เขียวน้ำทะเล
+                            leading: Icon(Icons.self_improvement, color: Colors.purple),
                             title: Text(
                               poses[index].exerciseType,
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -156,7 +162,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               'ระยะเวลา / Duration: ${poses[index].duration} วินาที / sec\nวันที่ / Date: ${poses[index].date.toLocal().toString().split(' ')[0]}',
                             ),
                             trailing: IconButton(
-                              icon: Icon(Icons.play_arrow, color: Colors.teal[300]), // เขียวน้ำทะเล
+                              icon: Icon(Icons.play_arrow, color: Colors.purple),
                               onPressed: () {
                                 _startPoseTimer(poses[index].duration, poses[index].difficulty);
                               },
@@ -177,11 +183,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           child: Container(
                             padding: EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Colors.blue[200]!, Colors.teal[300]!], // ฟ้าอ่อน + เขียวน้ำทะเล
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
+                              color: Colors.purple.withOpacity(0.9),
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
@@ -218,7 +220,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             });
           }
         },
-        backgroundColor: Colors.teal[300], // เขียวน้ำทะเล
+        backgroundColor: Colors.purple,
         child: Icon(Icons.add),
       ),
     );
